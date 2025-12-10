@@ -41,7 +41,10 @@ public class SecurityConfig {
                                 "/api/usuario/refresh",
                                 "/api/usuarioNormal/**",
                                 "/api/productos/**",
-                                "/api/boleta").permitAll()
+                                "/api/boleta",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 

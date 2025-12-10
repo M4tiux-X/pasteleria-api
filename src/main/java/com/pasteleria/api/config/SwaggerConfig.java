@@ -1,0 +1,37 @@
+package com.pasteleria.config;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class SwaggerConfig {
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+            .components(new Components()
+                .addSecuritySchemes("bearerAuth",
+                    new SecurityScheme()
+                        .type(SecurityScheme.Type.HTTP)
+                        .scheme("bearer")
+                        .bearerFormat("JWT")
+                )
+            )
+            .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
+            .info(new Info()
+                .title("API Pastelería")
+                .version("1.0")
+                .description("Documentación interactiva de la API Pastelería usando Swagger y OpenAPI")
+                .contact(new Contact()
+                    .name("Equipo de Desarrollo Pastelería")
+                    .email("soporte@pasteleria.cl")
+                )
+            );
+    }
+}
